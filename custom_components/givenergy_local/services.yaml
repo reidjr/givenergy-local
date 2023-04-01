@@ -89,8 +89,19 @@ activate_mode_timed_discharge:
       required: true
       selector:
         time:
+    charge_target:
+      name: Discharge Limit
+      description: >
+        Battery SOC minimum during discharging.
+        If left undefined, the existing charge target will be used.
+      required: true
+      selector:
+        number:
+          min: 4
+          max: 100
+          unit_of_measurement: "%"
 activate_mode_timed_export:
-  name: Activate timed export mode ( edited )
+  name: Activate timed export mode
   description: >
     This mode will hold your battery power and discharge it at full power
     during a period you define
@@ -114,6 +125,17 @@ activate_mode_timed_export:
       required: true
       selector:
         time:
+    charge_target:
+      name: Discharge Limit
+      description: >
+        Battery SOC minimum during discharging.
+        If left undefined, the existing charge target will be used.
+      required: true
+      selector:
+        number:
+          min: 4
+          max: 100
+          unit_of_measurement: "%"
 enable_timed_charge:
   name: Enable timed charging
   description: >
