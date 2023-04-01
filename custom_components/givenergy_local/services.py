@@ -23,6 +23,7 @@ _ATTR_POWER = "power"
 _ATTR_START_TIME = "start_time"
 _ATTR_END_TIME = "end_time"
 _ATTR_CHARGE_TARGET = "charge_target"
+_ATTR_CHARGE_RESERVE = "charge_reserve"
 
 # Shared schema used for setting charge/discharge power limits.
 _SET_POWER_SCHEMA = vol.Schema(
@@ -38,6 +39,9 @@ _TIME_SPAN_SCHEMA = vol.Schema(
         vol.Required(ATTR_DEVICE_ID): str,
         vol.Required(_ATTR_START_TIME): str,
         vol.Required(_ATTR_END_TIME): str,
+        vol.Required(_ATTR_CHARGE_RESERVE): vol.All(
+            vol.Coerce(int), vol.Range(min=4, max=100)
+        ),
     }
 )
 
@@ -51,16 +55,7 @@ _SERVICE_ACTIVATE_ECO = "activate_mode_eco"
 _SERVICE_ACTIVATE_ECO_SCHEMA = vol.Schema({vol.Required(ATTR_DEVICE_ID): str})
 
 _SERVICE_ACTIVATE_TIMED_DISCHARGE = "activate_mode_timed_discharge"
-_SERVICE_ACTIVATE_TIMED_DISCHARGE_SCHEMA = vol.Schema(
-    {
-        vol.Required(ATTR_DEVICE_ID): str,
-        vol.Optional(_ATTR_START_TIME): str,
-        vol.Optional(_ATTR_END_TIME): str,
-        vol.Optional(_ATTR_CHARGE_TARGET): vol.All(
-            vol.Coerce(int), vol.Range(min=4, max=100)
-        ),
-    }
-)
+_SERVICE_ACTIVATE_TIMED_DISCHARGE_SCHEMA = _TIME_SPAN_SCHEMA
 
 _SERVICE_ACTIVATE_TIMED_EXPORT = "activate_mode_timed_export"
 _SERVICE_ACTIVATE_TIMED_EXPORT_SCHEMA = _TIME_SPAN_SCHEMA
@@ -227,7 +222,7 @@ async def _async_activate_mode_timed_discharge(
             "Activating timed discharge mode between %s and %s", start_time, end_time
         )
         client.set_mode_storage((start_time, end_time), export=False)
-        client.set_shallow_charge(data[_ATTR_CHARGE_TARGET])
+        client.set_shallow_charge(data[_ATTR_CHARGE_RESERVE])
 
     await _async_service_call(hass, data[ATTR_DEVICE_ID], call)
 
@@ -246,7 +241,7 @@ async def _async_activate_mode_timed_export(
         )
         client.set_mode_storage((start_time, end_time), export=True)
 
-        client.set_shallow_charge(data[_ATTR_CHARGE_TARGET])
+        client.set_shallow_charge(data[_ATTR_CHARGE_RESERVE])
 
 
     await _async_service_call(hass, data[ATTR_DEVICE_ID], call)
