@@ -90,7 +90,7 @@ activate_mode_timed_discharge:
       selector:
         time:
 activate_mode_timed_export:
-  name: Activate timed export mode
+  name: Activate timed export mode ( edited )
   description: >
     This mode will hold your battery power and discharge it at full power
     during a period you define
