@@ -67,8 +67,9 @@ activate_mode_eco:
 activate_mode_timed_discharge:
   name: Activate timed discharge mode
   description: >
-    This mode will discharge your batteries to your home during a period you
-    define
+    This mode will charge and discharge your batteries to minimise your import from the grid,
+    It will charge at a minimum of ~300w, using AC if neccesary, until AC charge max is reached,
+    and force discharge your batteries to the grid/home during a period you define
   fields:
     device_id:
       name: Device
@@ -102,7 +103,7 @@ activate_mode_timed_discharge:
 activate_mode_timed_export:
   name: Activate timed export mode
   description: >
-    This mode will hold your battery power and discharge it at full power
+    This mode will hold your battery power, trickle charging at ~300w and discharge it at full power
     during a period you define
   fields:
     device_id:
