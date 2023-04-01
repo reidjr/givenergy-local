@@ -93,7 +93,6 @@ activate_mode_timed_discharge:
       name: Discharge Limit
       description: >
         Battery SOC minimum during discharging.
-        If left undefined, the existing charge target will be used.
       required: true
       selector:
         number:
@@ -129,7 +128,6 @@ activate_mode_timed_export:
       name: Discharge Limit
       description: >
         Battery SOC minimum during discharging.
-        If left undefined, the existing charge target will be used.
       required: true
       selector:
         number:
