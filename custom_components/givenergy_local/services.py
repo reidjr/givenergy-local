@@ -281,3 +281,4 @@ async def _async_disable_timed_charge(
         client.disable_charge()
 
     await _async_service_call(hass, data[ATTR_DEVICE_ID], call)
+    
