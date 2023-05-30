@@ -290,6 +290,6 @@ async def _async_reboot_inverter(hass: HomeAssistant, data: dict[str, Any]) -> N
 
     def call(client: GivEnergyClient) -> None:
         LOGGER.debug("Rebooting Inverter")
-        client.reboot_inverter()
+        client.reboot_invertor()
 
     await _async_service_call(hass, data[ATTR_DEVICE_ID], call)
